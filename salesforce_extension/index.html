@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #050608;
+      --bg-1: #0a0d11;
+      --text-main: #f4f7ff;
+      --text-muted: #a8b0c2;
+      --accent-cyan: #2af6ff;
+      --accent-pink: #ff3dbd;
+      --accent-lime: #d5ff6f;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-stroke: rgba(255, 255, 255, 0.14);
+      --glow: 0 0 32px rgba(42, 246, 255, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Exo 2", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(1200px 900px at 10% 20%, #0d1724 0%, transparent 55%),
+        radial-gradient(900px 700px at 88% 78%, #1e0c1f 0%, transparent 48%),
+        linear-gradient(130deg, var(--bg-0), var(--bg-1));
+      overflow-x: hidden;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%);
+      pointer-events: none;
+      z-index: -3;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(12px);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .orb-one {
+      width: 320px;
+      height: 320px;
+      top: -70px;
+      right: 5vw;
+      background: radial-gradient(circle, rgba(42, 246, 255, 0.38), rgba(42, 246, 255, 0));
+    }
+
+    .orb-two {
+      width: 360px;
+      height: 360px;
+      bottom: -120px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(255, 61, 189, 0.25), rgba(255, 61, 189, 0));
+    }
+
+    .layout {
+      width: min(1180px, 94vw);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 3.25rem 0;
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      gap: 1.6rem;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .card {
+      border: 1px solid var(--card-stroke);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), var(--glow);
+    }
+
+    .hero-panel {
+      padding: clamp(1.6rem, 3vw, 2.8rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent-lime);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.84rem;
+    }
+
+    h1 {
+      margin: 0.8rem 0 1rem;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 700;
+      line-height: 1.08;
+      font-size: clamp(2rem, 6.2vw, 4.4rem);
+      max-width: 12ch;
+    }
+
+    h1 span {
+      color: var(--accent-cyan);
+      text-shadow: 0 0 20px rgba(42, 246, 255, 0.5);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 46ch;
+      line-height: 1.7;
+      font-size: clamp(0.96rem, 1.25vw, 1.06rem);
+    }
+
+    .subtitle span {
+      display: block;
+    }
+
+    .subtitle .quote-line {
+      color: #c6d1e8;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .quote-under-eyebrow {
+      margin: 0.55rem 0 0;
+      font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+      line-height: 1.5;
+      max-width: 48ch;
+    }
+
+    .cta-row {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      padding: 0.82rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #001418;
+      background: linear-gradient(120deg, var(--accent-cyan), #66ffee);
+      box-shadow: 0 10px 20px rgba(42, 246, 255, 0.26);
+    }
+
+    .btn-secondary {
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-pink);
+      box-shadow: 0 8px 22px rgba(255, 61, 189, 0.25);
+    }
+
+    .right-panel {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1.1rem 1.1rem 1.2rem;
+    }
+
+    .card-label {
+      margin: 0;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+    }
+
+    .time {
+      margin: 0.55rem 0 0.2rem;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(1.6rem, 4.7vw, 2.5rem);
+      color: var(--accent-cyan);
+      text-shadow: 0 0 18px rgba(42, 246, 255, 0.4);
+    }
+
+    .date {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .month-year {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    .weekdays,
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .weekdays {
+      margin-top: 0.9rem;
+    }
+
+    .weekdays span {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-align: center;
+    }
+
+    .days {
+      margin-top: 0.52rem;
+    }
+
+    .day {
+      height: 2.1rem;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 0.9rem;
+      color: #dbe5ff;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .day.empty {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .day.today {
+      background: linear-gradient(145deg, rgba(42, 246, 255, 0.23), rgba(42, 246, 255, 0.08));
+      border-color: rgba(42, 246, 255, 0.6);
+      color: #efffff;
+      box-shadow: 0 0 18px rgba(42, 246, 255, 0.26);
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.2rem 0 1.6rem;
+      }
+
+      .hero-panel {
+        min-height: 58vh;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .hero-panel,
+      .card {
+        border-radius: 18px;
+      }
+
+      .day {
+        height: 1.8rem;
+        font-size: 0.84rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="orb orb-one" aria-hidden="true"></div>
+  <div class="orb orb-two" aria-hidden="true"></div>
+
+  <main class="layout">
+    <section class="hero-panel">
+      <p class="eyebrow">Welcome Back</p>
+      <span id="quoteText" class="quote-line quote-under-eyebrow">"Success is the sum of small efforts, repeated day in and day out."</span>
+      <h1>Learn Salesforce <span>Here</span></h1>
+      <p class="subtitle">
+        <span id="thoughtText">Stay focused, keep building, and ship one step at a time.</span>
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1vzoRv2SgbjONWOaA4Ws5EsSzlw4b7Hw6" target="_blank" rel="noopener noreferrer">Link to Content</a>
+        <a class="btn btn-secondary" href="https://drive.google.com/drive/folders/1CE-PXBeFhBRP-jTzjHV7n4WN-xvT2dEb" target="_blank" rel="noopener noreferrer">Link to Videos</a>
+      </div>
+    </section>
+
+    <aside class="right-panel">
+      <article class="card watch-card">
+        <p class="card-label">Real-Time Watch</p>
+        <p class="time" id="time">00:00:00</p>
+        <p class="date" id="date">Loading date...</p>
+      </article>
+
+      <article class="card calendar-card">
+        <div class="calendar-header">
+          <p class="card-label">Calendar</p>
+          <p id="monthYear" class="month-year"></p>
+        </div>
+        <div class="weekdays" id="weekdays"></div>
+        <div class="days" id="days"></div>
+      </article>
+    </aside>
+  </main>
+
+  <script>
+    const timeEl = document.getElementById("time");
+    const dateEl = document.getElementById("date");
+    const monthYearEl = document.getElementById("monthYear");
+    const weekdaysEl = document.getElementById("weekdays");
+    const daysEl = document.getElementById("days");
+    const thoughtEl = document.getElementById("thoughtText");
+    const quoteEl = document.getElementById("quoteText");
+
+    const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const defaultThought = "Stay focused, keep building, and ship one step at a time.";
+    const defaultQuote = "\"Success is the sum of small efforts, repeated day in and day out.\"";
+
+    function setThoughtDefaults() {
+      thoughtEl.textContent = defaultThought;
+      quoteEl.textContent = defaultQuote;
+    }
+
+    function applyThoughtData(data) {
+      const thought = typeof data.thought === "string" && data.thought.trim() ? data.thought.trim() : defaultThought;
+      const quote = typeof data.quote === "string" && data.quote.trim() ? data.quote.trim() : defaultQuote;
+
+      thoughtEl.textContent = thought;
+      quoteEl.textContent = quote.startsWith("\"") ? quote : `"${quote}"`;
+    }
+
+    async function fetchThoughtJson(url) {
+      const response = await fetch(url, {
+        method: "GET"
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      return response.json();
+    }
+
+    async function loadThought() {
+      try {
+        const directUrl = "https://thought-server.vercel.app/api/thought";
+        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(directUrl)}`;
+
+        try {
+          const directData = await fetchThoughtJson(directUrl);
+          applyThoughtData(directData);
+          return;
+        } catch (_directError) {
+          const proxyData = await fetchThoughtJson(proxyUrl);
+          applyThoughtData(proxyData);
+        }
+      } catch (_error) {
+        setThoughtDefaults();
+      }
+    }
+
+    function updateClock() {
+      const now = new Date();
+
+      const timeText = now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+
+      const dateText = now.toLocaleDateString([], {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+      timeEl.textContent = timeText;
+      dateEl.textContent = dateText;
+    }
+
+    function renderWeekdays() {
+      weekdaysEl.innerHTML = "";
+
+      weekdayNames.forEach((day) => {
+        const label = document.createElement("span");
+        label.textContent = day;
+        weekdaysEl.appendChild(label);
+      });
+    }
+
+    function renderCalendar() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      monthYearEl.textContent = today.toLocaleDateString([], {
+        month: "long",
+        year: "numeric"
+      });
+
+      daysEl.innerHTML = "";
+
+      for (let i = 0; i < firstDayIndex; i += 1) {
+        const emptyCell = document.createElement("div");
+        emptyCell.className = "day empty";
+        daysEl.appendChild(emptyCell);
+      }
+
+      for (let dayNumber = 1; dayNumber <= daysInMonth; dayNumber += 1) {
+        const dayCell = document.createElement("div");
+        dayCell.className = "day";
+        dayCell.textContent = String(dayNumber);
+
+        if (dayNumber === today.getDate()) {
+          dayCell.classList.add("today");
+        }
+
+        daysEl.appendChild(dayCell);
+      }
+    }
+
+    renderWeekdays();
+    renderCalendar();
+    updateClock();
+    setThoughtDefaults();
+    loadThought();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
